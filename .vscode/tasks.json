@@ -1,0 +1,47 @@
+{
+    // This version number is required by VS Code
+    "version": "2.0.0",
+
+    // This is an array that holds all your tasks
+    "tasks": [
+        {
+            // ---- THIS IS THE LABEL THE ERROR IS COMPLAINING ABOUT ----
+            // Every task inside the "tasks" array MUST have a unique label.
+            "label": "Build and Run Active C File",
+
+            // The type of task - "shell" means it runs a command in the terminal
+            "type": "shell",
+
+            // The command to run (the C compiler)
+            "command": "gcc",
+
+            // The arguments to pass to the command
+            "args": [
+                "-g", // Include debug symbols
+                "${file}", // Use the currently active file (e.g., simple_calculator.c)
+                "-o",      // Specify the output file name
+                // Create the output file in the same directory, with the same name (but no extension)
+                "${fileDirname}/${fileBasenameNoExtension}",
+                "&&",      // If compilation succeeds, run the next command
+                // Execute the file we just created
+                "${fileDirname}/${fileBasenameNoExtension}"
+            ],
+
+            // Ensures the problem matcher (for errors/warnings) works correctly
+            "problemMatcher": [
+                "$gcc"
+            ],
+
+            // Makes this the default build task (so it runs with Cmd + Shift + B)
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+
+            // Optional: Clears the terminal before running the task
+            "presentation": {
+                "clear": true
+            }
+        }
+    ]
+}
